@@ -1,0 +1,15 @@
+import { books } from './books';
+import { Book } from './Book';
+
+export function BookList(){
+    return(
+        <>
+            <h1>Amazon Best Sellers</h1>
+            <section className='booklist'>
+                {books.map((book) => (
+                    <Book key={book.id} book={book} />
+                ))}
+            </section>
+        </>
+    )
+}
