@@ -2,8 +2,10 @@
 const express = require('express');
 const app = express();
 const router = require('./routes/postRoutes');
+const logger = require('./middleware/logger');
 
 app.use(express.json()); //para que pueda leer
+app.use(logger);
 
 // rutas
 app.get('/health', (req, res) => {
