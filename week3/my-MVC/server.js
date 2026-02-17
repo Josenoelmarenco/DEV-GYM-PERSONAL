@@ -6,6 +6,7 @@ const logger = require('./middleware/logger');
 
 app.use(express.json()); //preparamos el req.body
 // app.use(logger); //Observa todas las requests
+app.use(logger); //Registra cada solicitud, fecha, hora, y acción
 
 // rutas
 app.get('/health', (req, res) => {
