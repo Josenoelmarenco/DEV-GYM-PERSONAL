@@ -20,10 +20,10 @@ const getPostById = (req, res) => {
   if (!post) {
     return res.status(404).json({ error: 'Post not found' });
   }
-  res.status(200).json(post);
+  return res.status(200).json(post);
 };
 
-// DELETE /api/posts/:id  (professor style: boolean result)
+// DELETE /api/posts/:id
 const deletePostById = (req, res) => {
   const { id } = req.params;
 
@@ -32,22 +32,14 @@ const deletePostById = (req, res) => {
     return res.status(404).json({ error: 'Post not found' });
   }
 
-  return res.status(200).send(true); // or .end() ambos no envían cuerpo
+  return res.status(204).end(); // or .end() ambos no envían cuerpo
 };
 
 // Updte post, método PUT
 const updatePost = (req, res) => {
   const { id } = req.params;
   const { title, content } = req.body;
-
-  // 1) validar input (PUT requiere ambos)
-  if (!title?.trim() || !content?.trim()) {
-    return res.status(400).json({ error: 'title and content are required' });
-  }
-
-  // 2) llamar al model para actualizar
   const updated = PostModel.putPostById(id, { title, content });
-  // 3) si no existe el id
   if (!updated) {
     return res.status(404).json({ error: 'Post not found' });
   }
@@ -59,15 +51,10 @@ const patchPostById = (req, res) => {
   const { id } = req.params;
   const { title, content } = req.body;
 
-  if (!title?.trim() && !content?.trim()) {
-    return res.status(400).json({ error: 'title or content are required' });
-  }
   const updated = PostModel.patchPostById(id, { title, content }); //porque id viene en la url y title y el data en el body.
-
   if (!updated) {
     return res.status(404).json({ error: 'Post not found' });
   }
-
   return res.status(200).json(updated);
 };
 
