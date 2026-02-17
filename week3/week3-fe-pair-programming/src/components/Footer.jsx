@@ -1,11 +1,67 @@
-function Footer() {
+const Footer = () => {
+  const year = new Date().getFullYear()
+
   return (
-    <div>
-      <p className="section-dummy">Footer</p>
-      <p className="section-dummy">...</p>
-    </div>
-  );
+    <footer className='section footer'>
+      <ul className='footer-links' id='nav-links'>
+        <li>
+          <a href='#home' className='footer-link'>
+            home
+          </a>
+        </li>
+        <li>
+          <a href='#about' className='footer-link'>
+            about
+          </a>
+        </li>
+        <li>
+          <a href='#services' className='footer-link'>
+            services
+          </a>
+        </li>
+        <li>
+          <a href='#tours' className='footer-link'>
+            tours
+          </a>
+        </li>
+      </ul>
+      <ul className='footer-icons'>
+        <li>
+          <a
+            href='https://www.facebook.com'
+            target='_blank'
+            rel='noreferrer'
+            className='footer-icon'
+          >
+            <i className='fab fa-facebook'></i>
+          </a>
+        </li>
+        <li>
+          <a
+            href='https://www.twitter.com'
+            target='_blank'
+            rel='noreferrer'
+            className='footer-icon'
+          >
+            <i className='fab fa-twitter'></i>
+          </a>
+        </li>
+        <li>
+          <a
+            href='https://www.squarespace.com/'
+            target='_blank'
+            rel='noreferrer'
+            className='footer-icon'
+          >
+            <i className='fab fa-squarespace'></i>
+          </a>
+        </li>
+      </ul>
+      <p className='copyright'>
+        copyright © travel tours company {year}. all rights reserved
+      </p>
+    </footer>
+  )
 }
 
-export default Footer;
- 
+export default Footer
