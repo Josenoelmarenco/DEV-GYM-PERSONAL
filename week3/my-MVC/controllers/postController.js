@@ -8,13 +8,8 @@ const getPosts = (req, res) => {
 //Verificamos el req para crear un post
 const createPost = (req, res) => {
   const { title, content } = req.body;
-  if (!title?.trim() || !content?.trim()) {
-    return res
-      .status(400)
-      .json({ error: 'El titulo y el contenido requerido ' });
-  }
   const created = PostModel.addOne({ title, content });
-  res.status(201).json(created);
+  return res.status(201).json(created);
 };
 
 //Verificamos si el usuario quiere encontrar un post
