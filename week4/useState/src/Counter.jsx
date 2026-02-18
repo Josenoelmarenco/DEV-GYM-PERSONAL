@@ -6,9 +6,7 @@ const Counter = () => {
     const [count, setCount] = useState(0);
 
     // 2. Acción 
-    const handleClick = () => {
-        setCount(count + 1);
-    }; 
+    const handleClick = () => {setCount(count + 1);}; 
     // 3. Vista
     return (
             <button onClick={handleClick}> Estos son mis clicks: {count} </button>
