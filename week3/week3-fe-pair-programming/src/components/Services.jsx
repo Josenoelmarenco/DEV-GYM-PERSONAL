@@ -83,8 +83,8 @@ const Services = () => {
        <Title title='our' subTitle='services' /> {/*pasamos el texto literal  */}
 
       <div className='section-center services-center'>
-        {services.map((service) => {
-          return <Service key={service.id} {...service} />
+        {services.map((s) => {
+          return <Service key={s.id} {...s} />
         })}
       </div>
     </section>
