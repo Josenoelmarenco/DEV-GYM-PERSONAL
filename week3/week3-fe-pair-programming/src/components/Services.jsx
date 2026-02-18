@@ -53,18 +53,38 @@
 // export default Services
 
 //aquí mapeamos desde data, e importamos el formato que hicimos de service
-import { services } from '../data'
+// import { services } from '../data'
+// import Title from './Title'
+// import Service from './Service'
+
+// const Services = () => {
+//   return (
+//     <section className='section services' id='services'>
+//       <Title title='our' subTitle='services' />
+
+//       <div className='section-center services-center'>
+//         {services.map((service) => {
+//           return <Service {...service} key={service.id} />
+//         })}
+//       </div>
+//     </section>
+//   )
+// }
+
+// export default Services
+
 import Title from './Title'
 import Service from './Service'
+import { services } from '../data'
 
 const Services = () => {
   return (
     <section className='section services' id='services'>
-      <Title title='our' subTitle='services' />
+       <Title title='our' subTitle='services' /> {/*pasamos el texto literal  */}
 
       <div className='section-center services-center'>
         {services.map((service) => {
-          return <Service {...service} key={service.id} />
+          return <Service key={service.id} {...service} />
         })}
       </div>
     </section>
