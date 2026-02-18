@@ -27,7 +27,6 @@
 
 // export default Tour
 
-import { tours } from "../data";
 
 const Tour = ({image, date, title, info, location, duration, cost }) => {
   return(
@@ -41,7 +40,7 @@ const Tour = ({image, date, title, info, location, duration, cost }) => {
               <h4>{title}</h4>
             </div>
           <p>{info}</p>
-          <div className="tour-footer>">
+          <div className="tour-footer">
             <p>
               <span>
                 <i className="fas fa-map"></i>
