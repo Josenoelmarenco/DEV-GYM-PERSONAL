@@ -16,13 +16,13 @@ button {
 }
 
 .light {
-  background-color: rgb(210, 247, 189);
+  background-color: rgb(241, 241, 241);
   color: black;
   height: 100vh;
 }
 
 .dark {
-  background-color: rgb(88, 8, 84);
+  background-color: rgb(65, 65, 65);
   color: white;
   height: 100vh;
 }
