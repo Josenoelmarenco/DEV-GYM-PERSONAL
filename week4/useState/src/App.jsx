@@ -6,6 +6,7 @@ import LikeButton from './Like'
 import MeEncantaButton from '../MeEncanta'
 import ImputName from './InputName'
 import ToDoList from './ToDoList'
+import ToDoListNew from './ToDoList-v2'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -20,6 +21,7 @@ function App() {
       <MeEncantaButton/>
       <ImputName/>
       <ToDoList/>
+      <ToDoListNew/>
       </div>
 
     </>
