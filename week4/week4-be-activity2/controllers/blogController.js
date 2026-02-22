@@ -32,11 +32,19 @@ const createBlog = async (req, res) => {
 const getBlogById = async (req, res) => {
   const { blogId } = req.params;
 
-  const blog = await Blog.findById(blogId);
-  if (blog) {
-    res.status(200).json(blog);
-  } else {
-    res.status(404).json({ message: 'Blog not found' });
+  if (!mongoose.Types.ObjectId.isValid(blogId)) {
+    return res.status(400).json({ message: 'Invalid blog ID' });
+  }
+
+  try {
+    const blog = await Blog.findById(blogId);
+    if (blog) {
+      res.status(200).json(blog);
+    } else {
+      res.status(404).json({ message: 'Blog not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'Failed to retrieve blog' });
   }
 };
 
@@ -44,11 +52,19 @@ const getBlogById = async (req, res) => {
 const deleteBlog = async (req, res) => {
   const { blogId } = req.params;
 
-  const deletedBlog = await Blog.findOneAndDelete({ _id: blogId });
-  if (deletedBlog) {
-    res.status(200).json({ message: 'Blog deleted successfully' });
-  } else {
-    res.status(404).json({ message: 'Blog not found' });
+  if (!mongoose.Types.ObjectId.isValid(blogId)) {
+    return res.status(400).json({ message: 'Invalid blog ID' });
+  }
+
+  try {
+    const deletedBlog = await Blog.findOneAndDelete({ _id: blogId });
+    if (deletedBlog) {
+      res.status(200).json({ message: 'Blog deleted successfully' });
+    } else {
+      res.status(404).json({ message: 'Blog not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'Failed to delete blog' });
   }
 };
 
