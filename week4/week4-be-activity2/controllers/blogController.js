@@ -13,8 +13,19 @@ const getAllBlogs = async (req, res) => {
 
 // POST /blogs
 const createBlog = async (req, res) => {
-  const newBlog = await Blog.create({ ...req.body });
-  res.status(201).json(newBlog);
+  try {
+    const newBlog = await Blog.create({ ...req.body });
+    res.status(201).json(newBlog);
+  } catch (error) {
+    if (error.name === 'ValidationError') {
+      return res
+        .status(400)
+        .json({ message: 'Invalid input', error: error.message });
+    }
+    res
+      .status(500)
+      .json({ message: 'Failed to create blog', error: error.message });
+  }
 };
 
 // GET /blogs/:blogId
