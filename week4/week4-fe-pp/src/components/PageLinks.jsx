@@ -1,13 +1,13 @@
-import { pageLinks } from "../data";
-import PageLink from "./PageLink";
+import { Link } from "react-router-dom";
 
-const PageLinks = ({ parentClass, itemClass }) => {
+const PageLink = ({ link, itemClass }) => {
   return (
-    <ul className={parentClass} id="nav-links">
-      {pageLinks.map((link) => {
-        return <PageLink key={link.id} link={link} itemClass={itemClass} />;
-      })}
-    </ul>
+    <li>
+      <Link to={link.href} className={itemClass}>
+        {link.text}
+      </Link>
+    </li>
   );
 };
-export default PageLinks;
+
+export default PageLink;
