@@ -1,3 +1,5 @@
+const apiUrl = 'http://localhost:4000/api/blogs';
+
 const fetchBlogs = async () => {
   try {
     const response = await fetch(apiUrl); // Sends a GET request to retrieve data
