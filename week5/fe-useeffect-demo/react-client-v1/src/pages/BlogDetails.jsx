@@ -1,3 +1,4 @@
+// muestra cómo OBTENER un solo blog y ELIMINARLO por ID usandouseEffect()
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 

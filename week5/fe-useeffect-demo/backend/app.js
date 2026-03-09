@@ -1,19 +1,19 @@
-require('dotenv').config()
+require('dotenv').config();
 const connectDB = require('./config/db');
-const express = require('express')
-const cors = require('cors')
-const blogRoutes = require('./routes/blogs')
+const express = require('express');
+const cors = require('cors');
+const blogRoutes = require('./routes/blogs');
 const customMiddleware = require('./middleware/customMiddleware');
 
 // express app
-const app = express()
+const app = express();
 
-const port=process.env.PORT || 4000;
+const port = process.env.PORT || 4000;
 connectDB();
 
 // middleware
-app.use(cors())
-app.use(express.json())
+app.use(cors());
+app.use(express.json());
 
 app.use(customMiddleware.requestLogger);
 
@@ -28,6 +28,6 @@ app.use('/api/blogs', blogRoutes);
 
 app.use(customMiddleware.unknownEndpoint);
 
-app.use(customMiddleware.errorHandler)
+app.use(customMiddleware.errorHandler);
 
 app.listen(port, () => console.log(`Server started on port ${port}`));

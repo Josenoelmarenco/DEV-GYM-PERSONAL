@@ -1,3 +1,5 @@
+//muestra cómo PUBLICAR (crear) un nuevo blog a través de un formulario
+
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 

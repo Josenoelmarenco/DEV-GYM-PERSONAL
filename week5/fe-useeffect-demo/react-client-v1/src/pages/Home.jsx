@@ -1,3 +1,5 @@
+//muestra cómo OBTENER (leer) todos los blogs con un clic de botón (sin usar useEffect())
+
 import { useState } from "react";
 import BlogList from "./BlogList";
 
@@ -13,7 +15,7 @@ const Home = () => {
 
   return (
     <div className="home">
-      <button onClick={fetchData}>Load Blogs</button>
+      <button onClick={fetchData}>Cargar Blogs</button>
 
       {blogs && <BlogList blogs={blogs} />}
     </div>
