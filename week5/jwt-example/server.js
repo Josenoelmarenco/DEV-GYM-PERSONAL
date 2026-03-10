@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
+
 // const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken'); // Import jwt module
 const saltRounds = 10;
@@ -12,12 +13,12 @@ app.use(express.json());
 
 const SECRET = 'secretword';
 const createToken = (_id) => {
-  return jwt.sign({ _id }, SECRET, { expiresIn: '3d' });
+  return jwt.sign({ _id }, SECRET, { expiresIn: '3d' }); //esta sería la carga útil
 };
 
 // Connect to MongoDB database
 mongoose
-  .connect('mongodb://localhost:27017/jwt-example')
+  .connect('mongodb://localhost:27017/jwt-ejemplo')
   .then(() => console.log('Connected to MongoDB'))
   .catch((err) => console.error('Failed to connect to MongoDB', err));
 
@@ -32,45 +33,46 @@ app.get('/api/protectedroute', requireAuth, async (req, res) => {
 
 // Endpoint for user registration
 app.post('/api/users', async (req, res) => {
-  const { username, password } = req.body;
+  const { username, password } = req.body; //espera a que el cliente mande usuario y pass
 
-  const hashedPassword = await bcrypt.hash(password, saltRounds);
+  const hashedPassword = await bcrypt.hash(password, saltRounds); //Hasheamos esa pass que recibimos
   // Create a new user document and save it to the database
-  const newUser = new User({ username, password, hashedPassword });
+  const newUser = new User({ username, password, hashedPassword }); //mala práctica no deberíamos guardar también el pass
   await newUser.save();
 
   // Create JWT token
   const token = createToken(newUser._id);
-
+  // Responder
   res.status(201).json({ message: 'User registered successfully', token });
 });
 
-// Endpoint to authenticate a user
+// LOGIN: Endpoint to authenticate a user
 app.post('/api/users/login', async (req, res) => {
-  const { username, password } = req.body;
+  const { username, password } = req.body; //LEER CREDENCIALES
 
   // Find the user by username
-  const user = await User.findOne({ username });
+  const user = await User.findOne({ username }); //BUSCAR USUARIOS
 
   if (!user) {
     return res.status(401).json({ message: 'Authentication failed' });
   }
 
   // Compare the provided password with the hashed password in the database
-  const passwordMatch = await bcrypt.compare(password, user.hashedPassword);
+  const passwordMatch = await bcrypt.compare(password, user.hashedPassword); // COMPARAMOS PASSSWORD
 
   if (!passwordMatch) {
-    return res.status(401).json({ message: 'Authentication failed' });
+    return res.status(401).json({ message: 'Authentication failed' }); // SINO COINCIDE DEVUELVE ERROR 401
   }
 
   // Create JWT token
-  const token = createToken(user._id);
+  const token = createToken(user._id); //SI EL LOGIN FUE EXITOSO REGRESA UN TOKEN NUEVO
 
   res.status(200).json({ message: 'Authentication successful', token });
 });
 
 // Endpoint to fetch all users
 app.get('/api/users', async (req, res) => {
+  //OBTENER TODOS LOS USUARIOS
   const allUsers = await User.find({});
   res.status(200).json(allUsers);
 });
