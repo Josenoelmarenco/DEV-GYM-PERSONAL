@@ -2,6 +2,8 @@ import { useState } from "react";
 import {useNavigate} from "react-router-dom";
 
 const AddJobPage = () => {
+  // Estados, quiero controlar lo que el usuario escribe
+  // son estados de Input
   const [title, setTitle] = useState("");
   const [type, setType] = useState("Full-Time");
   const [description, setDescription] = useState("");
@@ -13,8 +15,11 @@ const AddJobPage = () => {
 
   const navigate = useNavigate();
 
-  const submitForm = async (e) => {
-    e.preventDefault();
+  const submitForm = async (e) => { //Aquí el usuario dispara un evento
+    // 1. Evita que la página se recargue (el comportamiento por defecto de los formularios en HTML)
+    e.preventDefault(); 
+    
+    // 2. Construye un objeto "limpio" con toda la información que el usuario escribió en los inputs
     const newJob = {
       title,
       type,
@@ -25,9 +30,13 @@ const AddJobPage = () => {
         contactPhone,
       },
       location,
-      salary: Number(salary),
+      salary: Number(salary), // Convierte el salario a número por si acaso es un texto
     };
+
+    // 3. Le entrega este objeto al "mensajero" (la función addJob) y espera a que termine (await)
     const createdJob = await addJob(newJob);
+    
+    // 4. Si el mensajero tuvo éxito y devolvió los datos del trabajo creado, redirige al usuario a la página principal ("/")
     if (createdJob) {
       navigate("/");
     }
@@ -102,20 +111,26 @@ const AddJobPage = () => {
 
 const addJob = async (newJob) => {
   try {
+    // 1. Usa fetch para hacer una llamada HTTP a tu servidor (a la ruta '/api/jobs')
     const res = await fetch('/api/jobs', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(newJob),
+      method: 'POST', // Indica que queremos CREAR datos nuevos (no solo leerlos)
+      headers: { 'Content-Type': 'application/json' }, // Le avisa al servidor: "Oye, te voy a enviar datos en formato JSON"
+      body: JSON.stringify(newJob), // Convierte el objeto de Javascript en un texto JSON para que viaje por internet
     });
+
+    // 2. Revisa si el servidor respondió con un error (ej. error 404 o 500)
     if (!res.ok) {
       const errorText = await res.text();
-      throw new Error(`Failed to add job: ${errorText}`);
+      throw new Error(`Failed to add job: ${errorText}`); // Si hay error, "lanza" una alarma para ir al 'catch'
     }
 
+    // 3. Si todo salió bien, convierte la respuesta del servidor (que viene en JSON) de vuelta a un objeto de Javascript y lo devuelve a `submitForm`.
     return await res.json();
+    
   } catch (error) {
+    // 4. Si ocurrió algún problema (se cayó el internet, el servidor dio error, etc.), captura el error para que tu app no colapse, lo muestra en la consola y devuelve "null".
     console.error(error);
-    return null;
+    return null; 
   }
 };
 

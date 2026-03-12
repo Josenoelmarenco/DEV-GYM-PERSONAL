@@ -9,6 +9,7 @@ const JobListing = ({ job }) => {
       <p>Type: {job.type}</p>
       <p>Description: {job.description}</p>
       <p>Company: {job.company.name}</p>
+      <p>Salary: {job.salaly}</p>
     </div>
   );
 };

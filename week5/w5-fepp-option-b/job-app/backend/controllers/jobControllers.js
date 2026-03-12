@@ -1,5 +1,5 @@
-const Job = require("../models/jobModel");
-const mongoose = require("mongoose");
+const Job = require('../models/jobModel');
+const mongoose = require('mongoose');
 
 //GET / jobs;
 const getAllJobs = async (req, res) => {
@@ -7,7 +7,7 @@ const getAllJobs = async (req, res) => {
     const jobs = await Job.find({}).sort({ createdAt: -1 });
     res.status(200).json(jobs);
   } catch (error) {
-    res.status(500).json({ message: "Failed to retrieve jobs" });
+    res.status(500).json({ message: 'Failed to retrieve jobs' });
   }
 };
 
@@ -19,7 +19,7 @@ const createJob = async (req, res) => {
   } catch (error) {
     res
       .status(400)
-      .json({ message: "Failed to create job", error: error.message });
+      .json({ message: 'Failed to create job', error: error.message });
   }
 };
 
@@ -28,7 +28,7 @@ const getJobById = async (req, res) => {
   const { jobId } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(jobId)) {
-    return res.status(400).json({ message: "Invalid job ID" });
+    return res.status(400).json({ message: 'Invalid job ID' });
   }
 
   try {
@@ -36,10 +36,10 @@ const getJobById = async (req, res) => {
     if (job) {
       res.status(200).json(job);
     } else {
-      res.status(404).json({ message: "Job not found" });
+      res.status(404).json({ message: 'Job not found' });
     }
   } catch (error) {
-    res.status(500).json({ message: "Failed to retrieve job" });
+    res.status(500).json({ message: 'Failed to retrieve job' });
   }
 };
 
@@ -48,23 +48,23 @@ const updateJob = async (req, res) => {
   const { jobId } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(jobId)) {
-    return res.status(400).json({ message: "Invalid job ID" });
+    return res.status(400).json({ message: 'Invalid job ID' });
   }
 
   try {
     const updatedJob = await Job.findOneAndUpdate(
       { _id: jobId },
       { ...req.body },
-      // { new: true } //this option is now deprecated.     
-      { returnDocument: 'after' }, //This is the new, preferred option 
+      // { new: true } //this option is now deprecated.
+      { returnDocument: 'after' }, //This is the new, preferred option
     );
     if (updatedJob) {
       res.status(200).json(updatedJob);
     } else {
-      res.status(404).json({ message: "Job not found" });
+      res.status(404).json({ message: 'Job not found' });
     }
   } catch (error) {
-    res.status(500).json({ message: "Failed to update job" });
+    res.status(500).json({ message: 'Failed to update job' });
   }
 };
 
@@ -73,7 +73,7 @@ const deleteJob = async (req, res) => {
   const { jobId } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(jobId)) {
-    return res.status(400).json({ message: "Invalid job ID" });
+    return res.status(400).json({ message: 'Invalid job ID' });
   }
 
   try {
@@ -81,10 +81,10 @@ const deleteJob = async (req, res) => {
     if (deletedJob) {
       res.status(204).send(); // 204 No Content
     } else {
-      res.status(404).json({ message: "Job not found" });
+      res.status(404).json({ message: 'Job not found' });
     }
   } catch (error) {
-    res.status(500).json({ message: "Failed to delete job" });
+    res.status(500).json({ message: 'Failed to delete job' });
   }
 };
 
