@@ -103,7 +103,7 @@ const AddJobPage = () => {
           value={salary}
           onChange={(e) => setSalary(e.target.value)}
         />
-        <button>Add Job</button>
+        <button onClick={() => submitForm()}>Add Job</button>
       </form>
     </div>
   );

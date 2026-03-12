@@ -32,6 +32,7 @@ export const JobPage = () => {
     fetchJob();
   }, [id]);
 
+  // Creamos nuestro controlador de click
   const onDeleteClick = async (jobId) => {
     const confirm = window.confirm("Are you sure you want to delete this job?");
     if (!confirm) return;
@@ -59,6 +60,7 @@ export const JobPage = () => {
       <p>Salary: {job.salary}</p>
       <button onClick={() => navigate("/")}>Back</button>
       <button onClick={() => onDeleteClick(job._id)}>Delete</button>
+      <button onClick={() => navigate(`/edit-job/${job._id}`)}>Edit</button>
     </div>
   );
 };
